@@ -1,13 +1,39 @@
-thickness=1; // 20
-handle_length=150;
-handle_bottom=40;
-head_width=150;
-head_height=120;
-error = 0.01;
-center = true;
-$fn=15; //150
+layer_height=1;
+scale=1; 
 
-include <../openscad_doctest.scad>;
+handle_length=150;
+handle_width=40;
+
+head_height=120;
+head_width=150;
+
+error = 0.01;
+$fn=10; //150
+
+//include <../openscad_doctest.scad>;
+
+module layer(scale);
+{
+    difference()
+    {
+        translate([0, handle_length-(handle_length+head_height)/2,0]) cube([head_width, (head_height+handle_length), layer_height], center=true);
+        // Bottom of handle
+        translate([handle_width*2, handle_length+handle_width/4, 0]) cylinder(h=layer_height, r=handle_width*2*scale,center=true);
+        translate([-handle_width*2, handle_length+handle_width/4, 0]) cylinder(h=layer_height, r=handle_width*2*scale,center=true);
+        // Top of grip - left
+        hull()
+        {
+            translate([handle_width*1.5, handle_width, 0]) cylinder(h=layer_height, r=handle_width*scale,center=true);
+            translate([handle_width*2, handle_length+handle_width/4, 0]) cube(100*scale, center=true);
+        }
+         // Top of grip - right
+        hull()
+        {
+            translate([-handle_width*1.5, handle_width, 0]) cylinder(h=layer_height, r=handle_width*scale,center=true);
+            translate([-handle_width*2, handle_length+handle_width/4, 0]) cube(100*scale, center=true);
+        }
+    }
+    }
 
 module handle(w,l,h) 
 {
@@ -43,6 +69,6 @@ module head_sjablon(w,h,t)
     }
 
     
-   translate([0,-handle_length/2,0])    handle(handle_bottom, handle_length, thickness);
+   //translate([0,-handle_length/2,0])    handle(handle_bottom, handle_length, thickness);
     
-   translate([-head_width/2,0, 0])    head(head_width, head_height, thickness);
+   //translate([-head_width/2,0, 0])    head(head_width, head_height, thickness);

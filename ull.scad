@@ -40,11 +40,31 @@ module layer(scale)
     }
     }
 
-module test();
+module band_cutout(height, band_thickness, orientation)
     {
-         translate([0,0,0]) layer(1+sin(30)*0.4);
-        
-        }
+        cylinder(h=height, d=band_thickness, center=true); 
+        rotate([0,0, orientation]) translate([0, 0, -height/2]) cube([head_width, band_thickness/4, height], center=false);
+        // To be gentle on band attachment:
+        translate([0, 0, height/2]) sphere(d=band_thickness*1.2);
+        translate([0, 0, -height/2]) sphere(d=band_thickness*1.2);
+    }
+
+
+// Very ugly code, need to modularize
+height=10;
+    band_thickness=4;
+module band_cutouts(height, band_thickness);
+    {
+     // left
+        translate([head_width*0.33, -head_height*0.5, 0]) band_cutout(height, band_thickness, 45);
+        translate([head_width*0.33, -head_height*0.7, 0]) band_cutout(height, band_thickness, 45);
+        translate([head_width*0.33, -head_height*0.9, 0]) band_cutout(height, band_thickness, 45);   
+     // right         
+        translate([-head_width*0.33, -head_height*0.5, 0]) band_cutout(height, band_thickness, 135);
+        translate([-head_width*0.33, -head_height*0.7, 0]) band_cutout(height, band_thickness, 135); 
+        translate([-head_width*0.33, -head_height*0.9, 0]) band_cutout(height, band_thickness, 135);
+     }
+    
 module build()
     {
         for (i = [0:30]) {

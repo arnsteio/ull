@@ -11,50 +11,54 @@ band_thickness=4;
 /* [Hidden] */
 layer_height=1;
 error = 0.01;
-$fn=15; //150
+$fn=10; //150
 
 module visual_test();
 	{
+        /* Purely to give a visual guide during construction */
 		# translate([0, handle_length-(handle_length+head_height)/2,thickness/2]) cube([head_width, (head_height+handle_length), error], center=true);
 		# translate([0, handle_length-(handle_length+head_height)/2,-thickness/2]) cube([head_width, (head_height+handle_length), error], center=true);
 	}
 
 module layer(scale)
 /* Makes one layer of the slingshot
+    scale: larger scale gives a smaller layer. 
+          I have designed the module with scales between 1 and 2 in mind but other values might work well. 
 */
-{
-    difference()
-    {   // The "plate" we are cutting shapes away from
-        translate([0, handle_length-(handle_length+head_height)/2,0]) cube([head_width, (head_height+handle_length), layer_height], center=true);
-        // Bottom of handle
-        translate([handle_width*2, handle_length+handle_width/4, 0]) cylinder(h=layer_height*2, r=handle_width*2*scale,center=true); //left
-        translate([-handle_width*2, handle_length+handle_width/4, 0]) cylinder(h=layer_height*2, r=handle_width*2*scale,center=true); //right
-        // Top of grip - left
-        hull()
-        {
-            translate([handle_width*1.3, handle_width*0.6, 0]) cylinder(h=layer_height*2, r=handle_width*scale,center=true);
-            translate([handle_width*2, handle_length+handle_width/4, 0]) cube(100*scale, center=true);
-        }
-         // Top of grip - right
-        hull()
-        {
-            translate([-handle_width*1.3, handle_width*0.6, 0]) cylinder(h=layer_height*2, r=handle_width*scale,center=true);
-            translate([-handle_width*2, handle_length+handle_width/4, 0]) cube(100*scale, center=true);
-        }
-        // Thumb-and-brace cutout - left
-       translate([head_width*0.93, -head_height*0.4, 0]) cylinder(h=layer_height*2, r=head_width*0.5*scale, center=true);
-       translate([-head_width*0.93, -head_height*0.4, 0]) cylinder(h=layer_height*2, r=head_width*0.5*scale, center=true);
-       // Fork cutout
-       translate([0, -head_height*0.7, 0]) cylinder(h=layer_height*2, r=head_width*0.25, center=true);
-       translate([0, -head_height*1.1,     0])  cube(head_width*0.5, center=true);
-    }
-    }
+	{
+    	difference()
+    		{   // The "plate" we are cutting shapes away from
+    		    translate([0, handle_length-(handle_length+head_height)/2,0]) cube([head_width, (head_height+handle_length), layer_height], center=true);
+    		    // Bottom of handle
+    		    translate([handle_width*2, handle_length+handle_width/4, 0]) cylinder(h=layer_height*2, r=handle_width*2*scale,center=true); //left
+    		    translate([-handle_width*2, handle_length+handle_width/4, 0]) cylinder(h=layer_height*2, r=handle_width*2*scale,center=true); //right
+    		    // Top of grip - left
+    		    hull()
+    		    {
+    		        translate([handle_width*1.3, handle_width*0.6, 0]) cylinder(h=layer_height*2, r=handle_width*scale,center=true);
+    		        translate([handle_width*2, handle_length+handle_width/4, 0]) cube(100*scale, center=true);
+    		    }
+    		     // Top of grip - right
+    		    hull()
+    	    	{
+    		        translate([-handle_width*1.3, handle_width*0.6, 0]) cylinder(h=layer_height*2, r=handle_width*scale,center=true);
+    		        translate([-handle_width*2, handle_length+handle_width/4, 0]) cube(100*scale, center=true);
+    		    }
+    		    // Thumb-and-brace cutout - left
+    		   translate([head_width*0.93, -head_height*0.4, 0]) cylinder(h=layer_height*2, r=head_width*0.5*scale, center=true);
+                // Thumb-and-brace cutout - right
+    		   translate([-head_width*0.93, -head_height*0.4, 0]) cylinder(h=layer_height*2, r=head_width*0.5*scale, center=true);
+    		   // Fork cutout
+    		   translate([0, -head_height*0.7, 0]) cylinder(h=layer_height*2, r=head_width*0.25, center=true);
+    		   translate([0, -head_height*1.1,     0])  cube(head_width*0.5, center=true);
+    		}
+    	}
 
 module band_cutout(height, band_thickness, orientation)
-    /* Makes one band cutout. Variables:
+    /* Makes one cutout for rubber bands. Variables:
        height: slingshot body thickness
        band_thickness: Thickness of the slingshot rubber band
-       orientation: What direction the cutout should be, away from the actual hole
+       orientation: What direction the cutout should follow away from the actual hole
     */
     {
         cylinder(h=height, d=band_thickness, center=true); 
@@ -67,6 +71,10 @@ module band_cutout(height, band_thickness, orientation)
 
 module band_cutouts(height, band_thickness)
     {
+    /* Build module for the "band_cutout" module". Variables:
+       height: slingshot body thickness
+       band_thickness: Thickness of the slingshot rubber band
+        */
      // left
         translate([head_width*0.33, -head_height*0.5, 0]) band_cutout(height, band_thickness, 45);
         translate([head_width*0.33, -head_height*0.7, 0]) band_cutout(height, band_thickness, 45);
@@ -77,6 +85,13 @@ module band_cutouts(height, band_thickness)
         translate([-head_width*0.33, -head_height*0.9, 0]) band_cutout(height, band_thickness, 135);
      }
     
+     module support()
+     /* Builds the requisite support for this slingshot so that it can be printed without raft and supports */
+     {
+         
+         }
+         
+         
 module build();
     {
         difference()

@@ -11,7 +11,13 @@ band_thickness=4;
 /* [Hidden] */
 layer_height=1;
 error = 0.01;
-$fn=150; //150
+$fn=15; //150
+
+module visual_test();
+	{
+		# translate([0, handle_length-(handle_length+head_height)/2,thickness/2]) cube([head_width, (head_height+handle_length), error], center=true);
+		# translate([0, handle_length-(handle_length+head_height)/2,-thickness/2]) cube([head_width, (head_height+handle_length), error], center=true);
+	}
 
 module layer(scale)
 /* Makes one layer of the slingshot

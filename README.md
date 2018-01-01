@@ -1,5 +1,8 @@
-Snorre sier at Ull kalles skiguden, bueguden, jaktguden og skjoldguden.
-Dette er et forsøk på å lage en open-source, fullt 3D-printbar, rekonfigurerbar buesprettert.
+*"Snorre sier at Ull kalles skiguden, bueguden, jaktguden og skjoldguden"*
+# This project: Making an open source, 3D-printable, reconfigurable slingbow. 
 
+I'll post my waypoints as I progress towards the target:
 
-[ull.stl](ull.stl) - probably finished, though I haven't printed it yet. 3-hole BTF tube attachment. 
+ull: Probably finished, though I haven't printed it yet. Standard slingshot, 3-hole BTF (Behind The Fork) tube attachment. 
+
+ull_decorated: Same as above but decorated and with integral print support. 3-hole BTF tube attachment. Not printed yet.

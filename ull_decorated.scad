@@ -85,17 +85,24 @@ module band_cutouts(height, band_thickness)
         translate([-head_width*0.33, -head_height*0.9, 0]) band_cutout(height, band_thickness, 135);
      }
     
-     module support()
+     module support(raft_thickness, height, length)
      /* Builds the requisite support for this slingshot so that it can be printed without raft and supports */
      {
-         
+         raft_width=3;
+         print_head=0.4;
+          translate([0, length/2, raft_thickness/2]) cube([raft_width*3, length+raft_width*2, raft_thickness], center=true); // raft
+          translate([0, length/2, height/2]) cube([print_head, length, height], center=true);
+         translate([0, length, 0]) cylinder(r2=print_head, r1=raft_width, h=height);
          }
+         translate([0, handle_length-40, -15.5]) support(0.25, 15.5, 40);
          
-         /*difference(){
+    /*     difference(){
          layer(1+sin(30)*0.4);
          layer(1+sin(30)*0.5);
-         }*/
-         
+         }
+//         Funker ikke, vet ikke hvorfor
+       translate([35, -10, (1+sin(30)*0.5)])  rotate([0, 0, 180])  text("Veierland 2017", size = 8, font = "Ringbearer");
+      */   
 module build();
     {
         difference()
@@ -110,6 +117,7 @@ module build();
             band_cutouts(thickness+1, band_thickness);
             translate([0,0,15])layer(1+sin(30)*0.5);
         }// diff
-        
+//        Doesn't work, I don't know why:
+//        translate([35, -10, (1+sin(30)*0.5)])  rotate([0, 0, 180])  text("Veierland 2017", size = 8, font = "Ringbearer");
     }
     

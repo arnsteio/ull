@@ -91,8 +91,8 @@ module band_cutouts(height, band_thickness)
          raft_width=3;
          print_head=0.4;
           translate([0, length/2, raft_thickness/2]) cube([raft_width*3, length+raft_width*2, raft_thickness], center=true); // raft
-          translate([0, length/2, height/2]) cube([print_head, length, height], center=true);
-         translate([0, length, 0]) cylinder(r2=print_head, r1=raft_width, h=height);
+          translate([0, length/2, height/2]) cube([print_head, length, height], center=true); // Support "pillar" at end
+         translate([0, length, 0]) cylinder(r2=print_head*2, r1=raft_width, h=height); // 
          }
          translate([0, handle_length-50, -15.5]) support(0.25, 15.5, 50);
          

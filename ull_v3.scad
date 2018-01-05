@@ -15,8 +15,8 @@ amount_of_sculpting=30;
 verbose="NO";
 error = 0.01;
 $fn=resolution;
-layer_number=resolution/2;
-layer_height=thickness /layer_number/2+error;
+layer_number=resolution; // Should be /2?
+layer_height=thickness /layer_number+error;
 
 module visual_test()
 	{

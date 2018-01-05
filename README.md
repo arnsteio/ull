@@ -9,7 +9,7 @@ ull_v2: Same as above but decorated and with integral print support. 3-hole BTF 
 Test printed at 80% of full size, 1mm shell, 25% gradual infill. A number of issues which needd to be adressed:
 - Snu design opp ned
 - Noe større slisser og hull (strikken er 5mm)
-- 80% lengde håndtak. Ønsker vi kun å tilrettelegge for "gangsta" skyting kan den være 17mm kortere.
+- 80% lengde håndtak. Ønsker vi kun å tilrettelegge for "thumb and brace" skyting kan den være 17mm kortere.
 - Bredde er nå (80%) 12 cm, trenger 12.5 cm.
 - Hullene må flyttes
 - Tykkelse kan være 2.5 cm, ikke 3.
@@ -20,7 +20,7 @@ Test printed at 80% of full size, 1mm shell, 25% gradual infill. A number of iss
 - Sentrere slisser internt i forhold til hull
 
 ull_v3: 
-- 80% lengde håndtak. Ønsker vi kun å tilrettelegge for "gangsta" skyting kan den være 17mm kortere. - FIXED
+- 80% lengde håndtak. Ønsker vi kun å tilrettelegge for "thumb and brace" skyting kan den være 17mm kortere. - FIXED
 - Bredde er nå (80%) 12 cm, trenger 12.5 cm. - FIXED
 - Penere overgang firkant-sirkel i gaffelen. - FIXED
 - Noe større slisser og hull (strikken er 5mm) - FIXED
@@ -32,4 +32,4 @@ ull_v3:
 - Skrift på overflaten
 - Dypere gaffel
 
-New error: thickness wrong
+New error: stl not a single object. v3 probably unprintable at this stage.  

@@ -5,16 +5,18 @@ handle_width=40;
 head_height=100;
 head_width=125;
 
-thickness=30;
+thickness=25;
 band_thickness=4.5;
 
-resolution=150;
+resolution=15;
+amount_of_sculpting=30;
 
 /* [Hidden] */
-layer_height=1;
+verbose="NO";
 error = 0.01;
 $fn=resolution;
-layer_number=resolution/4;
+layer_number=resolution/2;
+layer_height=thickness /layer_number/2+error;
 
 module visual_test()
 	{
@@ -65,13 +67,12 @@ module band_cutout(height, band_thickness, orientation)
     */
     {
         cylinder(h=height, d=band_thickness, center=true); 
-        rotate([0,0, orientation]) translate([0, 0, -height/2]) cube([head_width, band_thickness/3, height], center=false);
+        rotate([0,0, orientation]) translate([head_width/2, 0, 0]) cube([head_width, band_thickness/3, height+error*2], center=true);
         // To be gentle on band attachment:
-        translate([0, 0, height/2]) sphere(d=band_thickness*1.2);
-        translate([0, 0, -height/2]) sphere(d=band_thickness*1.2);
+        translate([0, 0, height/2]) sphere(d=band_thickness*1.5);
+        translate([0, 0, -height/2]) sphere(d=band_thickness*1.5);
     }
-
-
+    
 module band_cutouts(height, band_thickness)
     {
     /* Build module for the "band_cutout" module". Variables:
@@ -88,24 +89,20 @@ module band_cutouts(height, band_thickness)
         translate([-head_width*0.33, -head_height*0.9, 0]) band_cutout(height, band_thickness, 135);
      }
     
-     module support(raft_thickness, height, length)
+     module support(height, length)
      /* Builds the requisite support for this slingshot so that it can be printed without raft and supports */
      {
-         raft_width=3;
-         print_head=0.4;
-          translate([0, length/2, raft_thickness/2]) cube([raft_width*3, length+raft_width*2, raft_thickness], center=true); // raft
-          translate([0, length/2, height/2]) cube([print_head, length, height], center=true); // Support "pillar" at end
-         translate([0, length, 0]) cylinder(r2=print_head*2, r1=raft_width, h=height); // 
-         }
-         translate([0, handle_length-50, -15.5]) support(0.25, 15.5, 50);
+         raft_width=4;
+         print_head=0.4; // Defined by printer HW
+         print_height=0.15; // Defined by printer HW
+         raft_thickness=print_height*1.5;
          
-    /*     difference(){
-         layer(1+sin(30)*0.4);
-         layer(1+sin(30)*0.5);
+         translate([-raft_width, 0, 0]) cube([raft_width*2, length+raft_width*2, raft_thickness], center=false); // raft
+         translate([0, length/2, height/2]) cube([print_head*1.5, length, height], center=true); // 
+         translate([0, length, 0]) cylinder(r2=print_head*1.5, r1=raft_width, h=height); // Support "pillar" at end
          }
-//         Funker ikke, vet ikke hvorfor
-       translate([35, -10, (1+sin(30)*0.5)])  rotate([0, 0, 180])  text("Veierland 2017", size = 8, font = "Ringbearer");
-      */   
+        
+         
 module build()
     {
         difference()
@@ -117,10 +114,35 @@ module build()
                 translate([0,0,-i/2]) layer(1+sin(i)*0.4);
                 }
             } // union
-            band_cutouts(thickness+1, band_thickness);
-            translate([0,0,15])layer(1+sin(30)*0.5);
+              band_cutouts(thickness+1, band_thickness);
+              translate([0,0,15])layer(1+sin(30)*0.5); //Decorations
         }// diff
 //        Doesn't work, I don't know why:
 //        translate([35, -10, (1+sin(30)*0.5)])  rotate([0, 0, 180])  text("Veierland 2017", size = 8, font = "Ringbearer");
     }
-   layer(1);
+    
+    
+    module build2();
+    {
+        step=(thickness)/(amount_of_sculpting*2); // når amount of sculpting er 30 er translate(step*i) på det meste (amount/(thickness*2)*amount.
+        // Det trenger å være, på max, thickness/2 
+        if ( verbose == "YES") 
+            {
+            echo("Resolution is:", resolution);
+            echo("Step is", step);
+            echo("Layer number is:", layer_number);
+            echo("Layer height is:", layer_height);
+            }
+         difference()
+            {    
+            union()
+                {
+                for (i = [0:amount_of_sculpting]) {
+                    translate([0,0,step*i]) layer(1+sin(i)*0.4);
+                    translate([0,0,-step*i]) layer(1+sin(i)*0.4);
+                    }
+                #translate([0, handle_length-50, -thickness/2-layer_height/2]) support(thickness/2, 50);
+                } // union
+            band_cutouts(thickness+1, band_thickness);
+    }// Diff
+}

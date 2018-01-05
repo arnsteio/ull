@@ -8,7 +8,7 @@ head_width=125;
 thickness=25;
 band_thickness=4.5;
 
-resolution=15;
+resolution=150;
 amount_of_sculpting=30;
 
 /* [Hidden] */

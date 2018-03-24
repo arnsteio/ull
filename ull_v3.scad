@@ -15,8 +15,8 @@ amount_of_sculpting=30;
 verbose="NO";
 error = 0.01;
 $fn=resolution;
-layer_number=resolution; // Should be /2?
-layer_height=thickness /layer_number+error;
+layer_number=resolution/2; // Should be /2?
+layer_height=thickness /layer_number;
 
 module visual_test()
 	{
@@ -75,7 +75,9 @@ module band_cutout(height, band_thickness, orientation)
     
 module band_cutouts(height, band_thickness)
     {
-    /* Build module for the "band_cutout" module". Variables:
+    /* Build module for the "band_cutout" module". 
+       Depends on: band_cutout()
+       Variables:
        height: slingshot body thickness
        band_thickness: Thickness of the slingshot rubber band
         */
@@ -103,15 +105,15 @@ module band_cutouts(height, band_thickness)
          }
         
          
-module build()
+module build();
     {
         difference()
         {
             union()
             {
-            for (i = [0:30]) {
-                translate([0,0,i/2]) layer(1+sin(i)*0.4);
-                translate([0,0,-i/2]) layer(1+sin(i)*0.4);
+            for (i = [0:layer_height/2:thickness/2-layer_height/2]) {
+                translate([0,0,i]) layer(1+sin(i)*0.4);
+                translate([0,0,-i]) layer(1+sin(i)*0.4);
                 }
             } // union
               band_cutouts(thickness+1, band_thickness);
@@ -122,7 +124,7 @@ module build()
     }
     
     
-    module build2();
+    module build2()
     {
         step=(thickness)/(amount_of_sculpting*2); // når amount of sculpting er 30 er translate(step*i) på det meste (amount/(thickness*2)*amount.
         // Det trenger å være, på max, thickness/2 

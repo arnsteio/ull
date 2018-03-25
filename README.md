@@ -4,20 +4,14 @@
 
 I'll post my waypoints as I progress towards the target:
 
----
-
 ## ull
 
 Proof of concept. Standard slingshot, 3-hole BTF (Behind The Fork) tube attachment. 
-
----
 
 ## ull_v2
 
 Same as above but decorated and with integral print support. 3-hole BTF tube attachment.
 Test printed at 80% of full size, 1mm shell, 25% gradual infill. A number of issues were found and addressed.
-
----
 
 ## ull_v3 
 

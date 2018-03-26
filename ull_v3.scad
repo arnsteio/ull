@@ -1,3 +1,5 @@
+// Support is now unused
+
 /* [Global] */
 handle_length=120; //103 hvis thumb-and-brace
 handle_width=40;
@@ -5,17 +7,17 @@ handle_width=40;
 head_height=100;
 head_width=125;
 
-thickness=25;
-band_thickness=4.5;
+thickness=25; // Thickness of singshot body
+band_thickness=4.5; // Rubber band thickness
 
 resolution=150;
-amount_of_sculpting=30;
+amount_of_sculpting=0.8; // Between 0.1 and 1 are good, larger might be OK
 
 /* [Hidden] */
 verbose="NO";
 error = 0.01;
 $fn=resolution;
-layer_number=resolution/2; // Should be /2?
+layer_number=resolution/2;
 layer_height=thickness /layer_number;
 
 module visual_test()
@@ -100,21 +102,29 @@ module band_cutouts(height, band_thickness)
          raft_thickness=print_height*1.5;
          
          translate([-raft_width, 0, 0]) cube([raft_width*2, length+raft_width*2, raft_thickness], center=false); // raft
-         translate([0, length/2, height/2]) cube([print_head*1.5, length, height], center=true); // 
+         translate([0, length/2, height/2]) cube([print_head*1.5, length, height], center=true); // Support "wall"
          translate([0, length, 0]) cylinder(r2=print_head*1.5, r1=raft_width, h=height); // Support "pillar" at end
          }
         
          
 module build();
     {
+                if ( verbose == "YES") 
+                {
+                echo("Resolution is:", resolution);
+                echo("Layer number is:", layer_number);
+                echo("Layer height is:", layer_height);
+                }
+
         difference()
         {
             union()
             {
             for (i = [0:layer_height/2:thickness/2-layer_height/2]) {
-                translate([0,0,i]) layer(1+sin(i)*0.4);
-                translate([0,0,-i]) layer(1+sin(i)*0.4);
+                translate([0,0,i]) layer(1+sin(i)*amount_of_sculpting);
+                translate([0,0,-i]) layer(1+sin(i)*amount_of_sculpting);
                 }
+                 translate([0, handle_length-50, -thickness/2+(1*layer_height/4)]) support(thickness/2, 50);
             } // union
               band_cutouts(thickness+1, band_thickness);
               translate([0,0,15])layer(1+sin(30)*0.5); //Decorations
@@ -123,28 +133,3 @@ module build();
 //        translate([35, -10, (1+sin(30)*0.5)])  rotate([0, 0, 180])  text("Veierland 2017", size = 8, font = "Ringbearer");
     }
     
-    
-    module build2()
-    {
-        step=(thickness)/(amount_of_sculpting*2); // når amount of sculpting er 30 er translate(step*i) på det meste (amount/(thickness*2)*amount.
-        // Det trenger å være, på max, thickness/2 
-        if ( verbose == "YES") 
-            {
-            echo("Resolution is:", resolution);
-            echo("Step is", step);
-            echo("Layer number is:", layer_number);
-            echo("Layer height is:", layer_height);
-            }
-         difference()
-            {    
-            union()
-                {
-                for (i = [0:amount_of_sculpting]) {
-                    translate([0,0,step*i]) layer(1+sin(i)*0.4);
-                    translate([0,0,-step*i]) layer(1+sin(i)*0.4);
-                    }
-                #translate([0, handle_length-50, -thickness/2-layer_height/2]) support(thickness/2, 50);
-                } // union
-            band_cutouts(thickness+1, band_thickness);
-    }// Diff
-}

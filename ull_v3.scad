@@ -4,7 +4,7 @@
 handle_length=120; //103 hvis thumb-and-brace
 handle_width=40;
 
-head_height=100;
+head_height=80;
 head_width=125;
 
 thickness=25; // Thickness of singshot body
@@ -101,7 +101,7 @@ module band_cutouts(height, band_thickness)
          print_height=0.15; // Defined by printer HW
          raft_thickness=print_height*1.5;
          
-         translate([-raft_width, 0, 0]) cube([raft_width*2, length+raft_width*2, raft_thickness], center=false); // raft
+         translate([-raft_width, -raft_width, 0]) cube([raft_width*2, length+raft_width*2, raft_thickness], center=false); // raft
          translate([0, length/2, height/2]) cube([print_head*1.5, length, height], center=true); // Support "wall"
          translate([0, length, 0]) cylinder(r2=print_head*1.5, r1=raft_width, h=height); // Support "pillar" at end
          }

@@ -1,4 +1,4 @@
-// Support is now unused
+// arnsteio, 2018
 
 /* [Global] */
 handle_length=120; //103 hvis thumb-and-brace
@@ -10,7 +10,7 @@ head_width=125;
 thickness=25; // Thickness of singshot body
 band_thickness=4.5; // Rubber band thickness
 
-resolution=150;
+resolution=15;
 amount_of_sculpting=0.8; // Between 0.1 and 1 are good, larger might be OK
 
 /* [Hidden] */

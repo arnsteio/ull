@@ -18,7 +18,10 @@ Test printed at 80% of full size, 1mm shell, 25% gradual infill. A number of iss
 Issues with v2 fixed. Some notes and suggestions for v4:
 - If we wish to only do "thumb and brace" the handle can be 17mm shorter.
 - Turn design upside down?
-- Move holes or deeper fork?
 - Writing on surface?
 
 v3 probably usable but haven't printed it yet. 
+
+## ull_v4
+
+Plain v3 but with decorations.

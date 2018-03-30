@@ -26,4 +26,5 @@ v3 probably usable but haven't printed it yet.
 ## ull_v4
 
 Plain v3 but with decorations.
-
+Wish to print:
+- 100% size, 1mm shell, 30% constant infill, 2mm brim. 

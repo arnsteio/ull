@@ -1,0 +1,24 @@
+# arnsteio, 2017
+# Building the compile machine:
+
+# Necessary software
+sudo apt-get update
+sudo apt-get install -y openscad
+sudo apt-get install make
+sudo apt-get install meshlab
+# Unified time zones to compare log files across machines
+sudo timedatectl set-timezone Europe/Oslo
+
+# Set up Git
+mkdir git
+cd git
+git config --global user.name arnsteio
+git config --global user.email arnstein.orten@gmail.com
+git config --global core.editor "nano -w"
+git init
+# Need SSH keys for Github to work properly
+ssh-keygen -t rsa -b 4096 -C "arnstein.orten@gmail.com"
+echo "Web GUI: you need to add the ssh key to Github"
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_rsa
+git clone git@github.com:arnsteio/ull.git

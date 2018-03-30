@@ -140,8 +140,8 @@ module build();
               band_cutouts(thickness+1, band_thickness);
             //#  translate([0,0,15])layer(1+sin(30)*0.5); //Decorations
             
-            translate([25, -15, thickness/2-layer_height/2])  decoration(text1);
-            translate([12, -5, thickness/2-layer_height/2])  decoration(text2);
+            translate([25, -14, thickness/2-layer_height/2])  decoration(text1);
+            translate([11, -3, thickness/2-layer_height/2])  decoration(text2);
             
         }// diff
     }

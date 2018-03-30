@@ -2,5 +2,5 @@
 # include $(wildcard *.deps)
 
 %.stl: %.scad
-	openscad -m make -o $@ -D 'resolution=150' $<
+	openscad -m make -o $@ -D 'resolution=200' $<
 

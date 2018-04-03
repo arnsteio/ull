@@ -13,8 +13,9 @@ band_thickness=4.5; // Rubber band thickness
 resolution=15;
 amount_of_sculpting=0.8; // Between 0.1 and 1 are good, larger might be OK
 
-text1="VeierLand";
+text1="Veierland";
 text2="2018";
+text3="by Arnsteio";
 
 /* [Hidden] */
 verbose="NO";
@@ -109,11 +110,20 @@ module band_cutouts(height, band_thickness)
          translate([0, length, 0]) cylinder(r2=print_head*1.5, r1=raft_width, h=height); // Support "pillar" at end
          }
  
-module decoration(text)
+module decoration(text, size)
          {
             linear_extrude(height = 1, center = false, convexity = 10, twist = 0)
             {
-            rotate([0,0,180]) {text(text, size = 8, font = "Ringbearer");}
+            rotate([0,0,180]) {text(text, size = size, font = "Ringbearer");}
+            }
+
+         }
+
+module decorationV(text, size)
+         {
+            linear_extrude(height = 1, center = false, convexity = 10, twist = 0)
+            {
+            rotate([0,0,180]) {text(text, direction = "ttb", spacing=1.8, size = size, font = "Ringbearer");}
             }
 
          }
@@ -140,8 +150,9 @@ module build();
               band_cutouts(thickness+1, band_thickness);
             //#  translate([0,0,15])layer(1+sin(30)*0.5); //Decorations
             
-            translate([25, -14, thickness/2-layer_height/2])  decoration(text1);
-            translate([11, -3, thickness/2-layer_height/2])  decoration(text2);
+            translate([25, -14, thickness/2-layer_height/2])  decoration(text1, 8);
+            translate([11, -3, thickness/2-layer_height/2])  decoration(text2, 8);
+           % translate([0, 7, thickness/2-layer_height/2])  decorationV(text3, 5);
             
         }// diff
     }

@@ -28,3 +28,15 @@ v3 probably usable but haven't printed it yet.
 Plain v3 but with decorations.
 Wish to print:
 - 100% size, 1mm shell, 30% constant infill, 2mm brim. 
+
+# Building
+
+While a minimal test build to check structure only takes a few minutes, 
+a proper test build takes an hour, and is necessary for most visuals.
+And final builds take several hours. Hence, a build host apart from my 
+day-to-day machine is useful.
+
+I use git-hooks (symlinked from the /bin directory) to push to Github, 
+pull to my build machine (a 4-core, 8MB Linux machine implememted on the 
+UH-IaaS Openstack instance) and do builds. 
+

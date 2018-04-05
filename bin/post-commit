@@ -9,7 +9,7 @@
 # And final builds take several hours. Hence, a build host apart from my 
 # day-to-day machine is useful and that is what this script provides.
 # 
-# My build machine is a 4-core, 8MB Linux machine implememted on the 
+# My build machine is a 4-core, 16MB Linux machine implememted on the 
 # UH-IaaS Openstack instance. Its setup is documented under the docs 
 # catalogue. 
 

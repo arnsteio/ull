@@ -26,8 +26,8 @@ v3 probably usable but haven't printed it yet.
 ## ull_v4
 
 Plain v3 but with decorations.
-Wish to print:
-- 100% size, 1mm shell, 30% constant infill, 2mm brim. 
+Have test printed: 100% size, 1mm shell, 30% constant infill, 2mm brim. 
+Print went well but decorations need more work.
 
 # Building
 
@@ -37,6 +37,6 @@ And final builds take several hours. Hence, a build host apart from my
 day-to-day machine is useful.
 
 I use git-hooks (symlinked from the /bin directory) to push to Github, 
-pull to my build machine (a 4-core, 8MB Linux machine implememted on the 
+pull to my build machine (a 4-core, 16MB Linux machine implememted on the 
 UH-IaaS Openstack instance) and do builds. 
 

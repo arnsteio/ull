@@ -152,7 +152,7 @@ module build();
             
             translate([25, -16.5, thickness/2-layer_height])  decoration(text1, 8);
             translate([11, -4, thickness/2-layer_height])  decoration(text2, 8);
-            translate([0, 7, thickness/2-layer_height/2-0.1])  decorationV(text3, 5);
+            translate([0, 7, thickness/2-layer_height/2-0.2])  decorationV(text3, 5);
             
         }// diff
     }

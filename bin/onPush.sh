@@ -8,7 +8,7 @@ VER=ull_v4
 touch /tmp/onPushStart
 cd $BUILDDIR
 git pull
-rm $VER.stl
+mv $VER.stl{,-`date +%s`}
 make $VER.stl
 touch /tmp/onPushEnd
 

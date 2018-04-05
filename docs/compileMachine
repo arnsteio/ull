@@ -13,7 +13,9 @@ sudo apt-get install make
 sudo apt-get install meshlab
 # Unified time zones to compare log files across machines
 sudo timedatectl set-timezone Europe/Oslo
-
+# Add font files
+mkdir ~/.fonts/
+echo "On source machine:  scp .fonts/* ubuntu@158.39.75.184:~/.fonts/ "
 # Set up Git
 mkdir git
 cd git

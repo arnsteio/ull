@@ -1,6 +1,11 @@
 # arnsteio, 2017
 # Building the compile machine:
 
+# Setting up the buildmachine on OpenStack
+# This line assumes quite a lot so will not work out of the box - you need to do some pre-command setup and check things like network IDs
+# I have a quick OpenStack course on https://arnsteio.github.io/UH-IaaS-mini-workshop/ which deals with these issues. 
+openstack server create --image "GOLD Ubuntu 17.10" --flavor m1.xlarge --security-group "SSH and ICMP" --security-group default --key-name 820 --nic net-id=c97fa886-592e-4ad1-a995-6d55651bed78 UbuntuBuildMachine
+
 # Necessary software
 sudo apt-get update
 sudo apt-get install -y openscad

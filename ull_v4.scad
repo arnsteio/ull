@@ -121,7 +121,7 @@ module decoration(text, size)
 
 module decorationV(text, size)
          {
-            linear_extrude(height = 1, center = false, convexity = 10, twist = 0)
+            linear_extrude(height = 3, center = false, convexity = 10, twist = 0)
             {
             rotate([0,0,180]) {text(text, direction = "ttb", spacing=1.9, size = size, font = "Ringbearer");}
             }
@@ -150,9 +150,9 @@ module build();
               band_cutouts(thickness+1, band_thickness);
             //#  translate([0,0,15])layer(1+sin(30)*0.5); //Decorations
             
-            translate([25, -17, thickness/2-layer_height])  decoration(text1, 8);
+            translate([27, -17, thickness/2-layer_height])  decoration(text1, 8);
             translate([11, -4, thickness/2-layer_height])  decoration(text2, 8);
-            translate([0, 7, thickness/2-layer_height])  decorationV(text3, 5);
+            # translate([0, 7, thickness/2-layer_height])  decorationV(text3, 5);
             
         }// diff
     }

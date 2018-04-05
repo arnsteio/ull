@@ -5,10 +5,13 @@
 BUILDDIR=~/git/ull
 VER=ull_v4
 
-touch /tmp/onPushStart
+date > /tmp/onPushStart
 cd $BUILDDIR
 git pull
+# If following line fails no build will start
 mv $VER.stl{,-`date +%s`}
+# If above line fails this should still work, triggering the build
+rm $VER.stl
 make $VER.stl
-touch /tmp/onPushEnd
+date > /tmp/onPushEnd
 

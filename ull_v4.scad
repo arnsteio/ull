@@ -13,7 +13,7 @@ band_thickness=4.5; // Rubber band thickness
 resolution=15;
 amount_of_sculpting=0.8; // Between 0.1 and 1 are good, larger might be OK
 
-text1="Veierland";
+text1="VeierlanD";
 text2="2018";
 text3="by Arnsteio";
 
@@ -150,9 +150,9 @@ module build();
               band_cutouts(thickness+1, band_thickness);
             //#  translate([0,0,15])layer(1+sin(30)*0.5); //Decorations
             
-            translate([25, -16.5, thickness/2-layer_height])  decoration(text1, 8);
+            translate([25, -17, thickness/2-layer_height])  decoration(text1, 8);
             translate([11, -4, thickness/2-layer_height])  decoration(text2, 8);
-            translate([0, 7, thickness/2-layer_height/2-0.2])  decorationV(text3, 5);
+            translate([0, 7, thickness/2-layer_height])  decorationV(text3, 5);
             
         }// diff
     }

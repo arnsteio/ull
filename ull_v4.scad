@@ -135,6 +135,8 @@ module build();
                 echo("Resolution is:", resolution);
                 echo("Layer number is:", layer_number);
                 echo("Layer height is:", layer_height);
+                echo("Fork diameter is:", head_width*0.25*2);
+                echo("Slingshot thickness is:", thickness);
                 }
 
         difference()

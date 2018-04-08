@@ -4,8 +4,9 @@
 
 $fn=150;
 vres=0.15; // vertical resolution of printer
-hres=0.4;
-wall_thickness=0.5;
+hres=0.4;  // horizontal rsolution of printer
+wall_thickness=hres*1.1;
+
 module solid_whiskerbiscuit(dia,width,fletching_cuts, shaft_dia)
 /*
 Builds the whiskerbiscuit
@@ -58,5 +59,33 @@ Arguments:
         } // Brushes diff
 } //Module
 
+module flimsy_whiskerbiscuit(dia,width,shaft_supports, shaft_dia)
+/*
+Builds the whiskerbiscuit
+Arguments:
+    Diameter of slingbow cutout
+    Thickness of slingbow
+    Number of brushes that give arrow supports
+    Diameter of arrow
+*/
+    {
+    step=360/shaft_supports; // To place shaft supports evenly 
 
-whiskerbiscuit(62.5, 10, 50, 8);
+    difference ()
+        {
+            // wall
+            cylinder(h=width, d=dia, center=true);
+            cylinder(h=width, d=dia-wall_thickness*2, center=true);
+        }
+        
+    difference () // Brushes
+        {
+            for (degrees = [0:step:360]) { // whisker biscuit "brushes"
+                    rotate([0,0,degrees]) cube([dia-wall_thickness*2, hres*1.05, width], center=true);
+                    }//for
+            translate([0, 0, vres*3])  cylinder(h=width, d=dia-wall_thickness*2, center=true); // makes flimsy "brushes", for flexibility
+            cylinder(h=width, d=shaft_dia*1.05, center=true); // Cutout for shaft
+        } // Brushes diff
+} //Module
+
+flimsy_whiskerbiscuit(62.5, 25, 50, 8);

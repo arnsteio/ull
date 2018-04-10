@@ -42,19 +42,39 @@ Arguments:
     {
     step=360/shaft_supports; // To place shaft supports evenly 
 
+// bottom-side fastening ring
+    translate([0, 0, -width/2+hres]) difference () 
+        {
+            //
+            cylinder(h=hres*2, d=dia+4, center=true);
+            cylinder(h=hres*2, d=dia, center=true);
+        }
+        
+// top-side fastening ring
+ translate([0, 0, width/2-hres]) difference () 
+        {
+            //
+            cylinder(h=hres*2, d=dia+hres*2, center=true);
+            cylinder(h=hres*2, d=dia, center=true);
+        }
+
+// Wall
     difference ()
         {
-            // wall
             cylinder(h=width, d=dia, center=true);
             cylinder(h=width, d=dia-wall_thickness*2, center=true);
         }
-        
-    difference () // Brushes
+// Brushes
+    difference ()
         {
             for (degrees = [0:step:360]) { // whisker biscuit "brushes"
                     rotate([0,0,degrees]) cube([dia-wall_thickness*2, hres*1.05, width], center=true);
                     }//for
-            translate([0, 0, width/2+vres*2]) resize([0,0,width*2]) sphere(d=dia-wall_thickness*2); // This gives middle bit twice the printing thickness, for flexibility
+                    hull()
+                    {
+                        translate([0, 0, -width/4+vres*2]) resize([0,0,width/2]) sphere(d=dia-wall_thickness*2); // This gives middle bit twice the printing thickness of vres, for flexibility
+                        translate([0, 0, width/2])cylinder(h=width/2, d=dia-wall_thickness*2);
+                    } // hull
             cylinder(h=width, d=shaft_dia*1.05, center=true); // Cutout for shaft
         } // Brushes diff
 } //Module
@@ -88,4 +108,6 @@ Arguments:
         } // Brushes diff
 } //Module
 
-flimsy_whiskerbiscuit(62.5, 25, 50, 8);
+//flimsy_whiskerbiscuit(62.5, 25, 50, 8);
+
+whiskerbiscuit(62.5, 25, 40, 8);

@@ -61,7 +61,7 @@ module layer(scale)
     		   translate([-head_width*0.93, -head_height*0.4, 0]) cylinder(h=layer_height*2, r=head_width*0.5*scale, center=true);
     		   // Fork cutout
     		   translate([0, -head_height*0.7, 0]) cylinder(h=layer_height*2, r=head_width*0.25, center=true);
-    		   translate([0, -head_height*1.04,     0])  cube(head_width*0.5, center=true);
+    		   translate([0, -head_height*1.04,     0])  cube(head_width*0.5-1, center=true); // head_width*0.5*-1* to have whisker biscuits "snap in". 
     		}
     	}
 
@@ -123,7 +123,7 @@ module decorationV(text, size)
          {
             linear_extrude(height = 3, center = false, convexity = 10, twist = 0)
             {
-            rotate([0,0,180]) {text(text, direction = "ttb", spacing=1.9, size = size, font = "Ringbearer");}
+            rotate([0,0,180]) {text(text, direction = "ttb", spacing=1, size = size, font = "Aniron");}
             }
 
          }
@@ -154,7 +154,7 @@ module build();
             
             translate([25, -17, thickness/2-layer_height])  decoration(text1, 7.5);
             translate([11, -4, thickness/2-layer_height])  decoration(text2, 8);
-            # translate([0, 7, thickness/2-layer_height])  decorationV(text3, 5);
+            translate([0, 7, thickness/2-layer_height])  decorationV(text3, 2.5);
             
         }// diff
     }

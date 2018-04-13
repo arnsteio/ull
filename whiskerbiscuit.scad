@@ -6,6 +6,7 @@ $fn=150;
 vres=0.15; // vertical resolution of printer
 hres=0.4;  // horizontal rsolution of printer
 wall_thickness=hres*1.1;
+error=0.001;
 
 module solid_whiskerbiscuit(dia,width,fletching_cuts, shaft_dia)
 /*
@@ -91,17 +92,44 @@ Arguments:
     {
     step=360/shaft_supports; // To place shaft supports evenly 
 
+// BOTTOM-SIDE FASTENING RING
+    translate([0, 0, -width/2+hres]) difference ()
+        {
+            //
+            cylinder(h=hres*2, d=dia+4, center=true);
+            cylinder(h=hres*2+error, d=dia-wall_thickness*2, center=true);
+        }
+
+// TOP-SIDE FASTENING RING
+// Need to be above wall.
+ translate([0, 0, width/2+hres*3]) difference ()
+        {
+            union()
+            {
+            cylinder(h=hres*2, d=dia+hres*2, center=true);
+            translate([0,0,hres]) cylinder(h=hres*2, d=dia+hres*4, center=true);
+            }
+            cylinder(h=hres*4+error, d=dia-wall_thickness*2, center=true);
+        }
+
+
+// WALL
+// Bottom-side fastening ring needs to be below wall. Ergo:
+    translate([0,0,hres*2])
     difference ()
+       {
         {
             // wall
             cylinder(h=width, d=dia, center=true);
             cylinder(h=width, d=dia-wall_thickness*2, center=true);
         }
+       }
         
-    difference () // Brushes
+// BRUSHES
+    difference () 
         {
             for (degrees = [0:step:360]) { // whisker biscuit "brushes"
-                    rotate([0,0,degrees]) cube([dia-wall_thickness*2, hres*1.05, width], center=true);
+                    rotate([0,0,degrees]) cube([dia-wall_thickness*2, hres*1, width], center=true);
                     }//for
             translate([0, 0, vres*3])  cylinder(h=width, d=dia-wall_thickness*2, center=true); // makes flimsy "brushes", for flexibility
             cylinder(h=width, d=shaft_dia*1.05, center=true); // Cutout for shaft
@@ -110,4 +138,6 @@ Arguments:
 
 //flimsy_whiskerbiscuit(62.5, 25, 50, 8);
 
-whiskerbiscuit(62.5, 25, 40, 8);
+flimsy_whiskerbiscuit(62.5, 25, 30, 8);
+
+// 40 brushes is too much

@@ -162,7 +162,7 @@ module build();
               band_cutouts(thickness+1, band_thickness);
             //#  translate([0,0,15])layer(1+sin(30)*0.5); //Decorations
             
-            translate([24, -13, thickness/2-layer_height])  decoration(text1, 6.5);
+            translate([22, -13, thickness/2-layer_height])  decoration(text1, 6);
             translate([10, -4, thickness/2-layer_height])  decoration(text2, 7);
             translate([0, 4, thickness/2-layer_height])  decorationV(text3, 2.5);
             

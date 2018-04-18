@@ -129,7 +129,7 @@ Arguments:
     difference () 
         {
             for (degrees = [0:step:360]) { // whisker biscuit "brushes"
-                    rotate([0,0,degrees]) cube([dia-wall_thickness*2, hres*1, width], center=true);
+                    rotate([0,0,degrees]) cube([dia-wall_thickness*2, hres*3, width], center=true);
                     }//for
             translate([0, 0, vres*3])  cylinder(h=width, d=dia-wall_thickness*2, center=true); // makes flimsy "brushes", for flexibility
             cylinder(h=width, d=shaft_dia*1.05, center=true); // Cutout for shaft

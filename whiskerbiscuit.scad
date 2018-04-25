@@ -71,7 +71,7 @@ Arguments:
             for (degrees = [0:step:360]) { // whisker biscuit "brushes"
                     rotate([0,0,degrees]) cube([dia-wall_thickness*2, hres*1.05, width], center=true);
                     }//for
-                    hull()
+                    !hull()
                     {
                         translate([0, 0, -width/4+vres*2]) resize([0,0,width/2]) sphere(d=dia-wall_thickness*2); // This gives middle bit twice the printing thickness of vres, for flexibility
                         translate([0, 0, width/2])cylinder(h=width/2, d=dia-wall_thickness*2);
@@ -126,10 +126,11 @@ Arguments:
        }
         
 // BRUSHES
-    difference () 
+   difference () 
         {
             for (degrees = [0:step:360]) { // whisker biscuit "brushes"
-                    rotate([0,0,degrees]) cube([dia-wall_thickness*2, hres*3, width], center=true);
+                    rotate([0,0,degrees]) cube([dia-wall_thickness*2, hres*2, width], center=true);
+                    rotate([0,0,degrees+1]) cube([dia-wall_thickness*2, hres*2, width], center=true);
                     }//for
             translate([0, 0, vres*3])  cylinder(h=width, d=dia-wall_thickness*2, center=true); // makes flimsy "brushes", for flexibility
             cylinder(h=width, d=shaft_dia*1.05, center=true); // Cutout for shaft

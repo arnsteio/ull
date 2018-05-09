@@ -5,7 +5,7 @@
 /* [Global] */
 slingshot_cutout_diameter=62.5; 
 slingshot_thickness=25;
-number_of_brushes=30; // 40 is too much, around 30 usually right
+number_of_brushes=26; // 40 is too much, around 30 usually right
 arrow_diameter=8;
 
 $fn=150;
@@ -116,8 +116,11 @@ Arguments:
             for (degrees = [0:step:360]) { // whisker biscuit "brushes"
                     rotate([0,0,degrees]) cube([dia-wall_thickness*2, hres*2, width], center=true);
                     rotate([0,0,degrees+1]) cube([dia-wall_thickness*2, hres*2, width], center=true);
+                    rotate([0,0,degrees+2]) cube([dia-wall_thickness*2, hres*2, width], center=true);
+                    rotate([0,0,degrees-1]) cube([dia-wall_thickness*2, hres*2, width], center=true);
+                    rotate([0,0,degrees-2]) cube([dia-wall_thickness*2, hres*2, width], center=true);
                     }//for
-            translate([0, 0, vres*3])  cylinder(h=width, d=dia-wall_thickness*2, center=true); // makes flimsy "brushes", for flexibility
+            #translate([0, 0, vres*3])  cylinder(h=width, d1=dia-wall_thickness*6, d2=dia-wall_thickness*2, center=true); // makes flimsy "brushes", for flexibility
             cylinder(h=width, d=shaft_dia*1.05, center=true); // Cutout for shaft
         } // Brushes diff
 } //Module
